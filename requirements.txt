@@ -1,0 +1,5 @@
+aws-requests-auth==0.4.3
+boto3==1.26.100
+flask==2.2.3
+pillow==9.4.0
+pip-chill==1.0.1
