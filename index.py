@@ -8,7 +8,7 @@ s3 = boto3.client('s3', aws_access_key_id=conf.AWS_ACCESS_KEY_ID,
 response = s3.list_buckets()
 
 def get_all_bucket_objects(bucket_name):
-    return s3.list_objects(Bucket=bucket_name)
+    return s3.list_objects_v2(Bucket=bucket_name)
 
 # print(response.get('Buckets'))
 # with open('a.txt', 'a') as f:
