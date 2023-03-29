@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     print(response.get("Buckets"))
-    return jsonify({"detail": response.get("Buckets")})
+    return jsonify({"buckets": response.get("Buckets")})
 
 @app.route('/<bucket_name>')
 def get_bucket_files(bucket_name):
