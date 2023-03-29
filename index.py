@@ -7,8 +7,18 @@ s3 = boto3.client('s3', aws_access_key_id=conf.AWS_ACCESS_KEY_ID,
 
 response = s3.list_buckets()
 
+s3.list_objects_v2(Bucket="gready-bucket", Delimiter='/', Prefix="media/")
+
+with open("prefix_delimeter1.txt", "a+") as f:
+    f.write(str(s3.list_objects_v2(Bucket="gready-bucket", Delimiter='/', Prefix="media/Carousel_Images_1/")))
+
 def get_all_bucket_objects(bucket_name):
     return s3.list_objects_v2(Bucket=bucket_name)
+
+# bucket = s3.get_bucket("gready-bucket")
+# folders = bucket.list('', '/')
+# for folder in folders:
+#     print(folder.name)
 
 # print(response.get('Buckets'))
 # with open('a.txt', 'a') as f:
