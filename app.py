@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from index import response, get_all_bucket_objects, get_all_bucket_folder, create_s3_bucket
+from request import get_image_url
 
 app = Flask(__name__)
 
@@ -19,7 +20,8 @@ def get_bucket_folder(bucket_name):
         try:
             data = [{"key": obj['Prefix']} for i, obj in enumerate(objs['CommonPrefixes'])]
         except: # noqa
-            data = [{"key": obj['Key'], "last_modified": obj['LastModified'], "size": obj['Size']} for i, obj in enumerate(objs['Contents'])]
+            data = [{"key": obj['Key'], "last_modified": obj['LastModified'], "size": obj['Size'],
+                     "url":get_image_url(bucket_name, obj['Key'])} for i, obj in enumerate(objs['Contents'])]
         return jsonify({"data": data})
     except Exception as e:
         return jsonify({"error": str(e)})

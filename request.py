@@ -5,18 +5,19 @@ from PIL import Image
 import io
 import conf
 
-auth = AWSRequestsAuth(aws_access_key=conf.AWS_ACCESS_KEY_ID,
-                       aws_secret_access_key=conf.AWS_SECRET_ACCESS_KEY,
-                       aws_host='gready-bucket.s3.amazonaws.com',
-                       aws_region='us-east-1',
-                       aws_service='s3')
 
-r = requests.get("https://gready-bucket.s3.amazonaws.com/media/avatar-icon.jpg", auth=auth)
+def get_image_url(bucket, endpoint):
+    auth = AWSRequestsAuth(aws_access_key=conf.AWS_ACCESS_KEY_ID,
+                           aws_secret_access_key=conf.AWS_SECRET_ACCESS_KEY,
+                           aws_host=f'{bucket}.s3.amazonaws.com',
+                           aws_region='us-east-1',
+                           aws_service='s3'
+                           )
+    r = requests.get(f"https://{bucket}.s3.amazonaws.com/{endpoint}", auth=auth)
+    return r.url
 
-# print(r.content)
-
-image = Image.open(io.BytesIO(r.content))
-image = image.convert('RGB')
-image.save("avatar-icon.jpg")
-# image.save("avatar-icon.jpg")
-# print(r)
+    # image = Image.open(io.BytesIO(r.content))
+    # image = image.convert('RGB')
+    # image.save("avatar-icon.jpg")
+    # image.save("avatar-icon.jpg")
+    # print(r)
